@@ -1,12 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ShowCountryComponent } from './show-country/show-country.component';
-import { ShowCountriesComponent } from './show-countries/show-countries.component';
+import { ShowDogsComponent } from './show-dogs/show-dogs.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/countries', pathMatch: 'full'},
-  {path: 'countries', component: ShowCountriesComponent},
-  {path: 'country/:id', component: ShowCountryComponent},
+  {path: 'show-dogs', component: ShowDogsComponent},
 ]
 
 @NgModule({
