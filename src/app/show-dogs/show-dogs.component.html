@@ -99,7 +99,7 @@
             <i class="fa-solid fa-triangle-exclamation"></i> Delete {{delete_selected_id}}?
         </div>
         <div class="buttons">
-            <div class="button cancel">Cancel</div>
+            <div class="button cancel"(click)="toggleDeleteModal('')">Cancel</div>
             <div class="button confirm" (click)="deleteDog(+delete_selected_id)">Confirm</div>
         </div>
     </div>
@@ -162,46 +162,57 @@
 </div>
 
 <!-- EDIT POPUP -->
-<div class="hide popup-wrapper edit-modal" #EditPopup (click)="toggleEditModal(+dog.dogId)">
+<div class="hide popup-wrapper edit-modal" #EditPopup>
     <div class="modal">
         <div class="details">
             <div class="header">
-                ADD A DOG
+                EDIT A DOG
             </div>
             <div class="inputs">
                 <div class="input-container">
                     <span>Name</span>
-                    <input type="text" value="Insert Dog Data" name="name">
+                    <input type="text" [(ngModel)]="toUpdateDog.dogName" name="name" >
                 </div>
                 <div class="input-container">
                     <span>Age</span>
-                    <input type="text" value="Insert Dog Data" name="age">
+                    <input type="text"  [(ngModel)]="toUpdateDog.dogAge" name="age" >
                 </div>
                 <div class="input-container">
                     <span>Sex</span>
-                    <input type="text" value="Insert Dog Data" name="sex">
+                    <select type="text"  [(ngModel)]="toUpdateDog.dogSex" name="sex">
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        </select>
                 </div>
                 <div class="input-container">
                     <span>Size</span>
-                    <input type="text" value="Insert Dog Data" name="size">
+                    <select type="text"  [(ngModel)]="toUpdateDog.dogSize" name="size">
+                        <option value="Small">Small</option>
+                        <option value="Medium">Medium</option>
+                        <option value="Large">Large</option>
+                        </select>
                 </div>
                 <div class="input-container">
                     <span>Breed</span>
-                    <input type="text" value="Insert Dog Data" name="breed">
+                    <input type="text"  [(ngModel)]="toUpdateDog.dogBreed" name="breed">
                 </div>
                 <div class="input-container">
                     <span>Description</span>
-                    <input type="text" value="Insert Dog Data" name="description">
+                    <input type="text"  [(ngModel)]="toUpdateDog.dogDescription" name="description">
                 </div>
                 <div class="input-container">
                     <span>Birthday</span>
-                    <input type="date" name="birthday">
+                    <input type="date"  [(ngModel)]="toUpdateDog.dogBDay" name="birthday">
+                </div>
+                <div class="input-container">
+                    <span>Image</span>
+                    <input type="file" (change)="onFileChange($event)" accept="image/jpeg">
                 </div>
             </div>
         </div>
         <div class="buttons">
-            <div class="button cancel">Cancel</div>
-            <div class="button confirm" (click)="editDog(dog.dogId)">Save</div>
+            <div class="button cancel" (click)="toggleEditModal(+'')">Cancel</div>
+            <div class="button confirm" (click)="editDog(toUpdateDog.dogId)">Save</div>
         </div>
     </div>
 </div>

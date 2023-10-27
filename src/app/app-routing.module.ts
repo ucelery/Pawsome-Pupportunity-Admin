@@ -5,6 +5,7 @@ import { ShowDogsComponent } from './show-dogs/show-dogs.component';
 const routes: Routes = [
   {path:'', redirectTo:'show-dogs', pathMatch:'full'},
   {path: 'show-dogs', component: ShowDogsComponent},
+  {path: 'show-dogs/:dogId', component: ShowDogsComponent }, 
 ]
 
 @NgModule({
