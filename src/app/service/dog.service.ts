@@ -26,4 +26,8 @@ export class DogService {
     return this.http.post(`${this.dogsUrl + '/add-dog/'}`, dog)
    }
     
+   public deleteDog(id: number): Observable<Object> {
+    return this.http.get(`${this.dogsUrl}/delete/${id}`);
+  }
+  
 }

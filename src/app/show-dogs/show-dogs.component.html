@@ -75,10 +75,10 @@
 
             <!-- BUTTONS -->
             <div class="buttons">
-                <div (click)="toggleDeleteModal('')" class="button delete">
+                <div (click)="toggleDeleteModal(dog.dogId)" class="button delete">
                     <i class="fa-solid fa-trash-can"></i>
                 </div>
-                <div class="button edit" (click)="toggleEditModal('')">
+                <div class="button edit" (click)="toggleEditModal(dog.dogId)">
                     <i class="fa-solid fa-pen-to-square"></i>
                 </div>
             </div>
@@ -93,20 +93,20 @@
 
 <!-- POP UP -->
 <!-- DELETE POPUP -->
-<div class="hide popup-wrapper delete-modal" #DeletePopup (click)="toggleDeleteModal('')">
+<div class="hide popup-wrapper delete-modal" #DeletePopup>
     <div class="modal">
         <div class="details">
             <i class="fa-solid fa-triangle-exclamation"></i> Delete {{delete_selected_id}}?
         </div>
         <div class="buttons">
             <div class="button cancel">Cancel</div>
-            <div class="button confirm" (click)="deleteDog()">Confirm</div>
+            <div class="button confirm" (click)="deleteDog(+delete_selected_id)">Confirm</div>
         </div>
     </div>
 </div>
 
 <!-- ADD POPUP -->
-<div class="hide popup-wrapper add-modal" #AddPopup (click)="toggleAddModal()">
+<div class="hide popup-wrapper add-modal" #AddPopup >
     <div class="modal">
         <div class="details">
             <div class="header">
@@ -123,11 +123,18 @@
                 </div>
                 <div class="input-container">
                     <span>Sex</span>
-                    <input type="text"  [(ngModel)]="dog.dogSex" name="sex">
+                    <select type="text"  [(ngModel)]="dog.dogSex" name="sex">
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        </select>
                 </div>
                 <div class="input-container">
                     <span>Size</span>
-                    <input type="text"  [(ngModel)]="dog.dogSize" name="size">
+                    <select type="text"  [(ngModel)]="dog.dogSize" name="size">
+                        <option value="Small">Small</option>
+                        <option value="Medium">Medium</option>
+                        <option value="Large">Large</option>
+                        </select>
                 </div>
                 <div class="input-container">
                     <span>Breed</span>
@@ -148,14 +155,14 @@
             </div>  
         </div>
         <div class="buttons">
-            <div class="button cancel">Cancel</div>
+            <div class="button cancel" (click)="toggleAddModal()">Cancel</div>
             <div class="button confirm" (click)="onSubmit()">Confirm</div>
         </div>
     </div>
 </div>
 
 <!-- EDIT POPUP -->
-<div class="hide popup-wrapper edit-modal" #EditPopup (click)="toggleEditModal('Test ID')">
+<div class="hide popup-wrapper edit-modal" #EditPopup (click)="toggleEditModal(+dog.dogId)">
     <div class="modal">
         <div class="details">
             <div class="header">
@@ -194,7 +201,7 @@
         </div>
         <div class="buttons">
             <div class="button cancel">Cancel</div>
-            <div class="button confirm" (click)="deleteDog()">Save</div>
+            <div class="button confirm" (click)="editDog(dog.dogId)">Save</div>
         </div>
     </div>
 </div>

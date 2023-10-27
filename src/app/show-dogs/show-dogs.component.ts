@@ -31,20 +31,21 @@ export class ShowDogsComponent implements OnInit {
     });
   }
 
-  // POP-UP FOR DELETE
-  toggleDeleteModal(id: string) {
-    this.delete_selected_id = id === "" ? "ERR: no_id_passed" : id;
+// POP-UP FOR DELETE
+toggleDeleteModal(id: number | string) {
+  this.delete_selected_id = id == null ? "ERR: no_id_passed" : id.toString();
 
-    if (this.visible_pop_up)  {
-      // HIDE
-      this.DeletePopup.nativeElement.classList.add('hide');
-      this.visible_pop_up = false
-    } else {
-      // SHOW
-      this.DeletePopup.nativeElement.classList.remove('hide')
-      this.visible_pop_up = true
-    }
+  if (this.visible_pop_up)  {
+    // HIDE
+    this.DeletePopup.nativeElement.classList.add('hide');
+    this.visible_pop_up = false;
+  } else {
+    // SHOW
+    this.DeletePopup.nativeElement.classList.remove('hide');
+    this.visible_pop_up = true;
   }
+
+}
 
   // POP-UP FOR ADD
   toggleAddModal() {
@@ -60,7 +61,7 @@ export class ShowDogsComponent implements OnInit {
   }
 
   // POP-UP FOR EDIT
-  toggleEditModal(id: string) {
+  toggleEditModal(id: number) {
     if (this.visible_pop_up)  {
       // HIDE
       this.EditPopup.nativeElement.classList.add('hide');
@@ -74,9 +75,12 @@ export class ShowDogsComponent implements OnInit {
     console.log(this.EditPopup)
   }
 
-  deleteDog() {
+  deleteDog(id: number) {
     console.log(`Dog "${this.delete_selected_id}" has been deleted`);
-    this.toggleDeleteModal('');
+    this.dogService.deleteDog(+id).subscribe(data => {
+      console.log(data);
+    })
+    this.toggleDeleteModal(id);
   }
 
   onFileChange(event: any) {
@@ -101,6 +105,7 @@ export class ShowDogsComponent implements OnInit {
   onSubmit() {
     console.log(this.dog.dogImage);
     this.addDog();
+    this.toggleAddModal();
   }  
 
   addDog() {
@@ -111,7 +116,7 @@ export class ShowDogsComponent implements OnInit {
     error => console.log(error));
   }
 
-  editDog(id: string) {
+  editDog(id: number) {
     console.log(`Edited ${id}`);
   }
 }
