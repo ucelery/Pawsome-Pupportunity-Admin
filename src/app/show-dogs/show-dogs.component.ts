@@ -14,6 +14,7 @@ export class ShowDogsComponent implements OnInit {
   @ViewChild('AddPopup') AddPopup: ElementRef;
 
   dogs: Dog[] = [];
+  dog: Dog = new Dog();
 
   delete_selected_id = ""
   visible_pop_up = false
@@ -30,20 +31,21 @@ export class ShowDogsComponent implements OnInit {
     });
   }
 
-  // POP-UP FOR DELETE
-  toggleDeleteModal(id: string) {
-    this.delete_selected_id = id === "" ? "ERR: no_id_passed" : id;
+// POP-UP FOR DELETE
+toggleDeleteModal(id: number | string) {
+  this.delete_selected_id = id == null ? "ERR: no_id_passed" : id.toString();
 
-    if (this.visible_pop_up)  {
-      // HIDE
-      this.DeletePopup.nativeElement.classList.add('hide');
-      this.visible_pop_up = false
-    } else {
-      // SHOW
-      this.DeletePopup.nativeElement.classList.remove('hide')
-      this.visible_pop_up = true
-    }
+  if (this.visible_pop_up)  {
+    // HIDE
+    this.DeletePopup.nativeElement.classList.add('hide');
+    this.visible_pop_up = false;
+  } else {
+    // SHOW
+    this.DeletePopup.nativeElement.classList.remove('hide');
+    this.visible_pop_up = true;
   }
+
+}
 
   // POP-UP FOR ADD
   toggleAddModal() {
@@ -59,7 +61,7 @@ export class ShowDogsComponent implements OnInit {
   }
 
   // POP-UP FOR EDIT
-  toggleEditModal(id: string) {
+  toggleEditModal(id: number) {
     if (this.visible_pop_up)  {
       // HIDE
       this.EditPopup.nativeElement.classList.add('hide');
@@ -73,16 +75,48 @@ export class ShowDogsComponent implements OnInit {
     console.log(this.EditPopup)
   }
 
-  deleteDog() {
+  deleteDog(id: number) {
     console.log(`Dog "${this.delete_selected_id}" has been deleted`);
-    this.toggleDeleteModal('');
+    this.dogService.deleteDog(+id).subscribe(data => {
+      console.log(data);
+    })
+    this.toggleDeleteModal(id);
   }
+
+  onFileChange(event: any) {
+    const file = event.target.files[0]; // Get the selected file from the input element
+    if (file) {
+      this.convertToBase64(file);
+    }
+  }
+  
+  convertToBase64(file: File) {
+    const reader = new FileReader();
+  
+    reader.onload = () => {
+      const base64String = reader.result as string;
+      const base64ImageData = base64String.split(',')[1];
+      this.dog.dogImage = base64ImageData;
+    };
+  
+    reader.readAsDataURL(file);
+  }
+  
+  onSubmit() {
+    console.log(this.dog.dogImage);
+    this.addDog();
+    this.toggleAddModal();
+  }  
 
   addDog() {
     console.log("add dog");
+    this.dogService.addDog(this.dog).subscribe( data => {
+      console.log(data);
+    },
+    error => console.log(error));
   }
 
-  editDog(id: string) {
+  editDog(id: number) {
     console.log(`Edited ${id}`);
   }
 }
