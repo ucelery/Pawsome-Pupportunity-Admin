@@ -6,6 +6,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ShowDogsComponent } from './show-dogs/show-dogs.component';
+import { Router, RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { ShowDogsComponent } from './show-dogs/show-dogs.component';
     BrowserModule,
     FormsModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    RouterModule, 
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,4 +1,4 @@
-import { Observable } from "rxjs"
+import { Observable, catchError, throwError } from "rxjs"
 import { Dog } from "../model/dog"
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { Injectable } from '@angular/core';
@@ -14,9 +14,10 @@ export class DogService {
     this.dogsUrl = "http://localhost:18081";
   }
 
-  public getDog(id: number): Observable<Dog> {
-    return this.http.get<Dog>(this.dogsUrl + "/dog/" + id.toString());
+  public getDog(dogId: number): Observable<Dog> {
+    return this.http.get<Dog>(`${this.dogsUrl}/dog/${dogId}`);
   }
+  
 
   public getDogs(): Observable<Dog[]> {
     return this.http.get<Dog[]>(this.dogsUrl + '/dogs/');
@@ -26,8 +27,12 @@ export class DogService {
     return this.http.post(`${this.dogsUrl + '/add-dog/'}`, dog)
    }
     
-   public deleteDog(id: number): Observable<Object> {
-    return this.http.get(`${this.dogsUrl}/delete/${id}`);
+   public deleteDog(dogId: number): Observable<Object> {
+    return this.http.get(`${this.dogsUrl}/delete/${dogId}`);
+  }
+
+  public updateDog(dogId: number, dog: Dog): Observable<Object> {
+    return this.http.put(`${this.dogsUrl}/update/${dogId}`, dog);
   }
   
 }
