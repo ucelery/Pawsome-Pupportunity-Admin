@@ -21,4 +21,9 @@ export class DogService {
   public getDogs(): Observable<Dog[]> {
     return this.http.get<Dog[]>(this.dogsUrl + '/dogs/');
   }
+
+  public addDog(dog : Dog): Observable<Object>{
+    return this.http.post(`${this.dogsUrl + '/add-dog/'}`, dog)
+   }
+    
 }

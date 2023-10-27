@@ -30,7 +30,7 @@
         <!-- DISPLAY DOGS -->
         <div *ngFor="let dog of dogs" class="card">
             <div class="image">
-                <img src="https://media.discordapp.net/attachments/1062615866665082992/1167295914822602802/FS0pSZ6WYAAE2Bu.png?ex=654d9c09&is=653b2709&hm=cc8e16c94f1a1ae970e9eef08811820a267c3b69b68bf9b47889706583076719&=">
+                <img src="data:image/jpeg;base64,{{dog.dogImage}}">
             </div>
             <div class="details">
                 <table cellspacing="0" cellpadding="0">
@@ -115,37 +115,41 @@
             <div class="inputs">
                 <div class="input-container">
                     <span>Name</span>
-                    <input type="text" name="name">
+                    <input type="text" [(ngModel)]="dog.dogName" name="name">
                 </div>
                 <div class="input-container">
                     <span>Age</span>
-                    <input type="text" name="age">
+                    <input type="text"  [(ngModel)]="dog.dogAge" name="age">
                 </div>
                 <div class="input-container">
                     <span>Sex</span>
-                    <input type="text" name="sex">
+                    <input type="text"  [(ngModel)]="dog.dogSex" name="sex">
                 </div>
                 <div class="input-container">
                     <span>Size</span>
-                    <input type="text" name="size">
+                    <input type="text"  [(ngModel)]="dog.dogSize" name="size">
                 </div>
                 <div class="input-container">
                     <span>Breed</span>
-                    <input type="text" name="breed">
+                    <input type="text"  [(ngModel)]="dog.dogBreed" name="breed">
                 </div>
                 <div class="input-container">
                     <span>Description</span>
-                    <input type="text" name="description">
+                    <input type="text"  [(ngModel)]="dog.dogDescription" name="description">
                 </div>
                 <div class="input-container">
                     <span>Birthday</span>
-                    <input type="date" name="birthday">
+                    <input type="date"  [(ngModel)]="dog.dogBDay" name="birthday">
                 </div>
-            </div>
+                <div class="input-container">
+                    <span>Image</span>
+                    <input type="file" (change)="onFileChange($event)" accept="image/jpeg">
+                </div>
+            </div>  
         </div>
         <div class="buttons">
             <div class="button cancel">Cancel</div>
-            <div class="button confirm" (click)="deleteDog()">Confirm</div>
+            <div class="button confirm" (click)="onSubmit()">Confirm</div>
         </div>
     </div>
 </div>

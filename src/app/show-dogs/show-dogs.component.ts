@@ -14,6 +14,7 @@ export class ShowDogsComponent implements OnInit {
   @ViewChild('AddPopup') AddPopup: ElementRef;
 
   dogs: Dog[] = [];
+  dog: Dog = new Dog();
 
   delete_selected_id = ""
   visible_pop_up = false
@@ -78,8 +79,36 @@ export class ShowDogsComponent implements OnInit {
     this.toggleDeleteModal('');
   }
 
+  onFileChange(event: any) {
+    const file = event.target.files[0]; // Get the selected file from the input element
+    if (file) {
+      this.convertToBase64(file);
+    }
+  }
+  
+  convertToBase64(file: File) {
+    const reader = new FileReader();
+  
+    reader.onload = () => {
+      const base64String = reader.result as string;
+      const base64ImageData = base64String.split(',')[1];
+      this.dog.dogImage = base64ImageData;
+    };
+  
+    reader.readAsDataURL(file);
+  }
+  
+  onSubmit() {
+    console.log(this.dog.dogImage);
+    this.addDog();
+  }  
+
   addDog() {
     console.log("add dog");
+    this.dogService.addDog(this.dog).subscribe( data => {
+      console.log(data);
+    },
+    error => console.log(error));
   }
 
   editDog(id: string) {
