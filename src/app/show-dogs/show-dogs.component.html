@@ -75,10 +75,10 @@
 
             <!-- BUTTONS -->
             <div class="buttons">
-                <div class="delete">
+                <div (click)="toggleDeleteModal('')" class="button delete">
                     <i class="fa-solid fa-trash-can"></i>
                 </div>
-                <div class="edit">
+                <div class="button edit" (click)="toggleEditModal('')">
                     <i class="fa-solid fa-pen-to-square"></i>
                 </div>
             </div>
@@ -86,3 +86,111 @@
     </div>
 </div>
 
+<!-- ADD DOG BUTTON -->
+<div class="button add-dog-btn" (click)="toggleAddModal()">
+    <i class="fa-solid fa-plus"></i>
+</div>
+
+<!-- POP UP -->
+<!-- DELETE POPUP -->
+<div class="hide popup-wrapper delete-modal" #DeletePopup (click)="toggleDeleteModal('')">
+    <div class="modal">
+        <div class="details">
+            <i class="fa-solid fa-triangle-exclamation"></i> Delete {{delete_selected_id}}?
+        </div>
+        <div class="buttons">
+            <div class="button cancel">Cancel</div>
+            <div class="button confirm" (click)="deleteDog()">Confirm</div>
+        </div>
+    </div>
+</div>
+
+<!-- ADD POPUP -->
+<div class="hide popup-wrapper add-modal" #AddPopup (click)="toggleAddModal()">
+    <div class="modal">
+        <div class="details">
+            <div class="header">
+                ADD A DOG
+            </div>
+            <div class="inputs">
+                <div class="input-container">
+                    <span>Name</span>
+                    <input type="text" name="name">
+                </div>
+                <div class="input-container">
+                    <span>Age</span>
+                    <input type="text" name="age">
+                </div>
+                <div class="input-container">
+                    <span>Sex</span>
+                    <input type="text" name="sex">
+                </div>
+                <div class="input-container">
+                    <span>Size</span>
+                    <input type="text" name="size">
+                </div>
+                <div class="input-container">
+                    <span>Breed</span>
+                    <input type="text" name="breed">
+                </div>
+                <div class="input-container">
+                    <span>Description</span>
+                    <input type="text" name="description">
+                </div>
+                <div class="input-container">
+                    <span>Birthday</span>
+                    <input type="date" name="birthday">
+                </div>
+            </div>
+        </div>
+        <div class="buttons">
+            <div class="button cancel">Cancel</div>
+            <div class="button confirm" (click)="deleteDog()">Confirm</div>
+        </div>
+    </div>
+</div>
+
+<!-- EDIT POPUP -->
+<div class="hide popup-wrapper edit-modal" #EditPopup (click)="toggleEditModal('Test ID')">
+    <div class="modal">
+        <div class="details">
+            <div class="header">
+                ADD A DOG
+            </div>
+            <div class="inputs">
+                <div class="input-container">
+                    <span>Name</span>
+                    <input type="text" value="Insert Dog Data" name="name">
+                </div>
+                <div class="input-container">
+                    <span>Age</span>
+                    <input type="text" value="Insert Dog Data" name="age">
+                </div>
+                <div class="input-container">
+                    <span>Sex</span>
+                    <input type="text" value="Insert Dog Data" name="sex">
+                </div>
+                <div class="input-container">
+                    <span>Size</span>
+                    <input type="text" value="Insert Dog Data" name="size">
+                </div>
+                <div class="input-container">
+                    <span>Breed</span>
+                    <input type="text" value="Insert Dog Data" name="breed">
+                </div>
+                <div class="input-container">
+                    <span>Description</span>
+                    <input type="text" value="Insert Dog Data" name="description">
+                </div>
+                <div class="input-container">
+                    <span>Birthday</span>
+                    <input type="date" name="birthday">
+                </div>
+            </div>
+        </div>
+        <div class="buttons">
+            <div class="button cancel">Cancel</div>
+            <div class="button confirm" (click)="deleteDog()">Save</div>
+        </div>
+    </div>
+</div>
