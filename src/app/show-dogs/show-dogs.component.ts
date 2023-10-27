@@ -1,23 +1,33 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Dog } from '../model/dog';
+import { DogService } from '../service/dog.service';
 
 @Component({
   selector: 'app-show-dogs',
   templateUrl: './show-dogs.component.html',
   styleUrls: ['./show-dogs.component.css']
 })
-export class ShowDogsComponent {
+
+export class ShowDogsComponent implements OnInit {
   @ViewChild('DeletePopup') DeletePopup: ElementRef;
   @ViewChild('EditPopup') EditPopup: ElementRef;
   @ViewChild('AddPopup') AddPopup: ElementRef;
 
+  dogs: Dog[] = [];
+
   delete_selected_id = ""
   visible_pop_up = false
-  
-  constructor() {
+
+  constructor(private dogService: DogService) {
     this.DeletePopup = new ElementRef(null);
     this.EditPopup = new ElementRef(null);
     this.AddPopup = new ElementRef(null);
+  }
+
+  ngOnInit(): void {
+	this.dogService.getDogs().subscribe((data: Dog[]) => {
+      this.dogs = data; console.log(this.dogs);
+    });
   }
 
   // POP-UP FOR DELETE

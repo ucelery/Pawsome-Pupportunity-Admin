@@ -1,6 +1,11 @@
 export class Dog {
-    id: number = 0
-    name: string = ' '
-    breed: string = ' '
-    description: string = ' '
+  dogId: number = 0
+  dogName: string = ' '
+  dogBreed: string = ' '
+  dogAge: number = 0
+  dogSex: string = ' '
+  dogSize: string = ' '
+  dogImage: string = ' '
+  dogDescription: string = ' '
+  dogBDay: string = ' '
 }
